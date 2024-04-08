@@ -1,0 +1,127 @@
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<style>
+
+
+#background-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9998;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    backdrop-filter: blur(8px); /* Apply blur effect */
+}
+.solution-details-container {
+    padding: 10px; /* Adjust padding */
+    max-width: 100%; /* Ensure container stretches to full width */
+}
+.close {
+    font-size: 24px; /* Adjust the font size as needed */
+    line-height: 1; /* Ensure the icon is vertically centered */
+    padding: 10px; /* Add some padding for easier clickability */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    
+}
+
+
+/* Increase the close icon size on hover for better visibility */
+.close:hover {
+    font-size: 28px; /* Increase font size on hover */
+}
+.modal-content {
+    max-width: 40%;
+    margin: auto;
+    border: none;
+    box-shadow: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the modal height */
+}
+    /* Optionally, you can hide the modal header and footer */
+    .modal-header,
+    .modal-footer {
+        display: none;
+    }
+.solution-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.solution-card-body {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.solution-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.arrow-icon {
+    font-size: 20px;
+    color: #007bff;
+    margin-right: 10px;
+}
+@media (max-width: 768px) {
+            .modal-content {
+                max-width: 90%; /* Adjust the maximum width for smaller screens */
+            }
+
+            /* Optionally, adjust font sizes and other styles for smaller screens */
+            .solution-title {
+                font-size: 14px;
+            }
+
+            .arrow-icon {
+                font-size: 16px;
+            }
+        }
+</style>
+
+
+</head>
+
+
+<section id="solution-details" class="solution-details">
+    <div class="container solution-details-container" data-aos="fade-up">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="font-size: large;">Solutions implemented in the {{ category }}</h2>
+               
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for solution in solutions %}
+                    <div class="solution-card">
+                        <div class="solution-card-body">
+                            <i class="arrow-icon fas fa-arrow-right"></i><span class="solution-title">{{ solution.name }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</section>
+

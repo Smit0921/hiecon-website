@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" -->
+        <!-- crossorigin="anonymous"> -->
+
+   
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script> -->
+
+
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script> -->
+
+    <!-- Real-time Validation Script -->
+    <script>
+        
+        $(document).ready(function () {
+            // Real-time validation for mobile number
+            $("#mobile_no").on("input", function () {
+                const mobileNumber = $(this).val();
+                const mobileRegex = /^\d{10}$/;
+
+                if (!mobileRegex.test(mobileNumber)) {
+                    showError($(this), "Enter a valid 10-digit mobile number.");
+                } else {
+                    hideError($(this));
+                }
+            });
+
+            // Real-time validation for email
+            $("#email").on("input", function () {
+                const email = $(this).val();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!emailRegex.test(email)) {
+                    showError($(this), "Enter a valid email address.");
+                } else {
+                    hideError($(this));
+                }
+            });
+
+            // Real-time validation for username
+            $("#username").on("input", function () {
+                checkAvailability($(this), '#username-feedback', 'Username');
+            });
+            $("#mobile_no").on("input", function () {
+                checkAvailability($(this), '#mobile-feedback', 'Mobile number');
+            });
+
+            // Real-time validation for email
+            $("#email").on("input", function () {
+                checkAvailability($(this), '#email-feedback', 'Email');
+            });
+
+
+            // Real-time validation for password
+            $("#password").on("input", function () {
+                const password = $(this).val();
+                const suggestions = [];
+
+                // Check for minimum length
+                if (password.length < 8) {
+                    suggestions.push("Password must be at least 8 characters long.");
+                }
+
+                // Check for at least one uppercase letter
+                if (!/[A-Z]/.test(password)) {
+                    suggestions.push("Include at least one uppercase letter (A-Z).");
+                }
+
+                // Check for at least one lowercase letter
+                if (!/[a-z]/.test(password)) {
+                    suggestions.push("Include at least one lowercase letter (a-z).");
+                }
+
+                // Check for at least one digit
+                if (!/\d/.test(password)) {
+                    suggestions.push("Include at least one digit (0-9).");
+                }
+
+                // Update suggestions in the UI
+                const suggestionsDiv = $("#password-suggestions");
+                if (suggestions.length > 0) {
+                    suggestionsDiv.html("<strong>Password Suggestions:</strong><br>" + suggestions.join("<br>"));
+                } else {
+                    suggestionsDiv.html(""); // Clear suggestions if no issues
+                }
+
+                updateSubmitButton(); // Update submit button state after password input
+            });
+
+            // Real-time validation for repeat password
+            $("#repassword").on("input", function () {
+                const repeatPassword = $(this).val();
+                const password = $("#password").val();
+                const matchError = $("#password-match-error");
+
+                if (password !== repeatPassword) {
+                    matchError.text("Passwords do not match.");
+                } else {
+                    matchError.text("");
+                }
+
+                updateSubmitButton(); // Update submit button state after repeat password input
+            });
+
+            // Form submission validation
+            $("#signup-form").submit(function (event) {
+                const mobileNumber = $("#mobile_no").val();
+                const email = $("#email").val();
+                const username = $("#username").val();
+                const mobileRegex = /^\d{10}$/;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!mobileRegex.test(mobileNumber)) {
+                    showError($("#mobile_no"), "Enter a valid 10-digit mobile number.");
+                    event.preventDefault(); // Prevent form submission
+                }
+
+                if (!emailRegex.test(email)) {
+                    showError($("#email"), "Enter a valid email address.");
+                    event.preventDefault(); // Prevent form submission
+                }
+                // Update submit button state after all validations
+                updateSubmitButton();
+            });
+
+            // Function to show error message and style the input field
+            function showError(element, message) {
+                element.addClass("is-invalid").css('border-color', '#dc3545');
+                element.siblings(".invalid-feedback").text(message);
+            }
+
+            // Function to hide error message and reset the input field style
+            function hideError(element) {
+                element.removeClass("is-invalid").css('border-color', '');
+                element.siblings(".invalid-feedback").text('');
+            }
+
+            // Function to check availability
+
+          
+                // Function to check availability
+                function checkAvailability(field, feedbackId, fieldName) {
+                    var value = field.val().trim();
+                    var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+                    $.ajax({
+                        url: '/check_availability/',  // Adjust the URL as needed
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': csrftoken },  // Include the CSRF token in headers
+                        data: { 'field': fieldName, 'value': value, 'csrfmiddlewaretoken': csrftoken },
+                        success: function (data) {
+                            if (data.available) {
+                                $(feedbackId).text(fieldName + ' is available').css('color', 'green');
+                            } else {
+                                $(feedbackId).text(fieldName + ' is taken').css('color', 'red');
+                            }
+                            updateSubmitButton();
+                        },
+                        error: function () {
+                            $(feedbackId).text('Error checking ' + fieldName + ' availability').css('color', 'red');
+                            updateSubmitButton();
+                        }
+                    });
+                }
+
+                // Function to update submit button state
+        function updateSubmitButton() {
+            const mobileFeedback = $('#mobile-feedback').text();
+            const emailFeedback = $('#email-feedback').text();
+            const usernameFeedback = $('#username-feedback').text();
+            const password = $("#password").val();
+            const repeatPassword = $("#repassword").val();
+            const submitButton = $("#submit");
+
+            if (mobileFeedback.includes('taken') || emailFeedback.includes('taken') || usernameFeedback.includes('taken') || password.length < 8 || password !== repeatPassword) {
+                submitButton.prop("disabled", true);
+            } else {
+                submitButton.prop("disabled", false);
+            }
+        }
+    });
+
+    </script>
+  
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .main {
+        margin-top: 50px;
+    }
+
+    .signup-content {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .signup-form {
+        padding: 30px;
+    }
+
+    .signup-header {
+        background: #007bff;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+    }
+</style>
+
+</head>
+
+<!-- Additional Custom Styles -->
+
+
+<div class="main">
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-header">
+                    <h2>Create an Account</h2>
+                </div>
+                <div class="form-group">
+                    {{ userform.errors }}
+                </div>
+
+                <form action="{% url 'register' %}" method="post" id="signup-form" class="signup-form">
+                    {% csrf_token %}
+                    <!-- Your form fields -->
+                    <div class="form-group">
+                        <label for="username">Username <span class="text-muted">(Alphanumeric characters
+                                only)</span></label>
+                        <input type="text" class="form-control " name="username" id="username"
+                            placeholder="Your username" pattern="[a-zA-Z0-9]+"
+                            title="Only alphanumeric characters are allowed"
+                            value="{{ userform.username.value|default:''}}" required />
+                        <div id="username-feedback"></div>
+                    </div><br/>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"
+                            value="{{ userform.name.value|default:''}}" required />
+                    </div><br/>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" name="address" id="address" placeholder="Your address"
+                            value="{{ userform.address.value|default:''}}" required />
+                    </div><br/>
+
+                    <div class="form-group">
+                        <label for="mobile_no">Mobile No</label>
+                        <input type="text" class="form-control" name="mobile_no" id="mobile_no"
+                            placeholder="Enter 10 digit number" value="{{ userform.mobile_no.value|default:''}}"
+                            required />
+                        <span class="checkmark" style="display: none;">✓</span>
+                        <div class="invalid-feedback"></div>
+                        <div id="mobile-feedback"></div>
+                    </div><br/>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="EX-ex@gmail.com"
+                            value="{{ userform.email.value|default:'' }}" required />
+                        <span class="checkmark" style="display: none;">✓</span>
+                        <div class="invalid-feedback"></div>
+                        <div id="email-feedback"></div>
+                    </div><br/>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password1" id="password"
+                            placeholder="Enter your password"
+                            title="At least 8 characters long, including uppercase, lowercase, and a number" required />
+                        <div id="password-suggestions" class="text-muted">
+                            <!-- Suggestions will be displayed here -->
+                        </div>
+                        <span class="checkmark" style="display: none;">✓</span>
+                        <div class="invalid-feedback"></div>
+                    </div><br/>
+                    <div class="form-group">
+                        <label for="password">Repeat Password</label>
+                        <input type="password" class="form-control" name="password2" id="repassword"
+                            placeholder="Repeat your password" required />
+                        <span id="password-match-error" class="text-danger"></span>
+                    </div><br/>
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Sign up" />
+                    </div>
+                </form>
+
+                <p class="loginhere">
+                    Have already an account? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

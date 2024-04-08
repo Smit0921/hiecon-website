@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="section-title">
+            <h2>Contact</h2>
+            <h3><span>Contact Us</span></h3>
+            <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+          </div>
+          <div class="section-title">
+            <h3><span>Our Head Office</span></h3>
+            
+          </div>
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-6">
+              <div class="info-box mb-4">
+                <i class="bx bx-map"></i>
+                <h3>Our Address</h3>
+                <p>152, Azad Society,<br/>
+                    Ambawadi,Ahmedabad - 380015,<br/>
+                    Gujarat - India </p>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="info-box  mb-4">
+                <i class="bx bx-envelope"></i>
+                <h3>Email Us</h3>
+                <p><a href="mailto:sales@hiecon.com" style="color:#333333;">sales@hiecon.com</a></p>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="info-box  mb-4">
+                <i class="bx bx-phone-call"></i>
+                <h3>Call Us</h3>
+                <p ><a href="tel:+91- 9974707600" style="color:#333333;">+91- 9974707600</a></p>
+              </div>
+            </div>
+  
+          </div>
+
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
+  
+            <div class="col-lg-12">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.9496437037556!2d72.53522397456544!3d23.025621079171543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e859c413f5507%3A0x8ffe56b5830c8fac!2sHiecon%20Technologies%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1702894026001!5m2!1sen!2sin" frameborder="0" style="border:0; width: 100%; height: 384px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade">></iframe>
+            </div>
+           </div>
+          <br/>
+          <div class="section-title">
+           
+          <div class="section-title">
+            <h3><span>Our Branch Office</span></h3>
+            
+          </div>
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-6">
+              <div class="info-box mb-4">
+                <i class="bx bx-map"></i>
+                <h3>Our Address</h3>
+                <p>Old No 308, New No 99,<br/>
+                    SNR Chinnasamy Naidu Road, New Sidhhapudur,  <br/>
+                    Coimbatore - 641004<br/>
+                    Tamil Nadu - India.<br/>
+                    
+                    ​ </p>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="info-box  mb-4">
+                <i class="bx bx-envelope"></i>
+                <h3>Email Us</h3>
+                <p><a href="mailto:salescbe@hiecon.com" style=" color: #333333;">salescbe@hiecon.com
+                </a>
+                </p>
+              </div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6">
+              <div class="info-box  mb-4">
+                <i class="bx bx-phone-call"></i>
+                <h3>Call Us</h3>
+                <p><a href="tel:+91- 9787710123" style=" color: #333333;">+91- 9787710123</a></p>
+              </div>
+            </div>
+          </div>
+           <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-12 ">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31329.85561687741!2d76.95230770786723!3d11.021216083406129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85851bdbc8f3f%3A0x8b7d49b292d0c163!2sHiecon%20Technologies!5e0!3m2!1sen!2sin!4v1702538290297!5m2!1sen!2sin" frameborder="0" style="border:0; width: 100%; height: 384px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div><br/>
+            <div class="col-lg-12">
+              <div class="section-title">
+                <h2>Any query</h2>
+                
+                <form method="post" action="" method="post" role="form" class="php-email-form">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col form-group">
+                      <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="col form-group">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  </div>
+                  <!-- <div class="my-3">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                  </div> -->
+                  <div class="text-center"><button type="submit">Send Message</button></div>
+                </form>
+              </div>
+              </div>
+        </div>
+      </section>
+      <!-- End Contact Section <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31329.85561687741!2d76.95230770786723!3d11.021216083406129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85851bdbc8f3f%3A0x8b7d49b292d0c163!2sHiecon%20Technologies!5e0!3m2!1sen!2sin!4v1702538290297!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+ 
+ {% endblock %}  

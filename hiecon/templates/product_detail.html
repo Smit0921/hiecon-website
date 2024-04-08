@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.product-card .btn-primary {
+  display: none;
+  }
+
+
+.product-card:hover .btn-primary {
+  display: block;
+ }
+ .img-size {
+  height: 100px;
+  width: 150px;
+ }
+ h5.product-name {
+	  font-size: 13px;
+	  /* Updated font size */
+	  height: auto;
+	  color: black;
+	  /* Allow variable height for product name */
+  }
+  h5.product-name a {
+	 
+	  color: black;
+	  /* Allow variable height for product name */
+  }
+  h5.product-name a:hover{
+	
+	  color: blue;
+	  /* Allow variable height for product name */
+  }
+
+
+
+  .categories-table a {
+	  color: black;
+  }
+
+
+  .categories-table a:hover {
+	  color: blue;
+  }
+
+  .img-size {
+	  max-height: 150px;
+	  /* Set the maximum height */
+	  width: 150px;
+  }
+
+  body {
+	  background-color: #f8f9fa;
+	  /* Light gray background color */
+	  color: #495057;
+	  /* Text color */
+  }
+
+  .product-card {
+	  height: 100%;
+	  /* Set a fixed height for product cards */
+	  display: flex;
+	  padding: 10px;
+	  flex-direction: column;
+	  margin-bottom: 20px;
+	  border: 1px solid #ced4da;
+	  /* Light gray border for product cards */
+	  border-radius: 8px;
+	  /* Rounded corners for product cards */
+	  overflow: hidden;
+	  /* Hide overflow to round corners properly */
+	  transition: box-shadow 0.3s ease-in-out;
+	  /* Smooth box-shadow transition on hover */
+  }
+
+  .product-card:hover {
+	  box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+	  /* Box shadow on hover */
+  }
+
+  .product-card img {
+	  width: auto;
+	  /* Allow the width to adjust proportionally */
+	  height: 250px;
+	  
+	  /* Set a fixed height for the images */
+	  border-bottom: 1px solid #ced4da;
+	  /* Light gray border below the image */
+  }
+
+  /* Updated style for product price */
+  .product-card .card-body .product-price {
+	  font-size: 18px;
+	  /* Adjust the font size as needed */
+	  font-weight: bold;
+	  color: green;
+  }
+
+
+  .card-body {
+	  padding: 15px;
+	  flex: 1;
+	  /* Allow the card body to take remaining space */
+	  display: flex;
+	  flex-direction: column;
+  }
+
+  h5.product-name {
+	  font-size: 14px;
+	  /* Set a fixed font size for product name */
+	  height: 60px;
+	  /* Set a fixed height for product name */
+	  overflow: hidden;
+	  margin-bottom: 0;
+	  /* Hide overflow for longer names */
+  }
+
+  .product-make {
+	  font-size: 15px;
+	  margin-bottom: 0;
+  }
+
+  .btn-container {
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: flex-end;
+	  /* Align buttons to the bottom */
+	  height: 80px;
+	  /* Set a fixed height for the button container */
+  }
+
+  .btn-primary {
+	  background-color: #007bff;
+	  /* Primary blue color for buttons */
+	  border-color: #007bff;
+	  width: 100%;
+	  /* Make buttons full width */
+	  margin-top: 5px;
+	  /* Add margin for better spacing between buttons */
+  }
+
+  .btn-primary:hover {
+	  background-color: #0056b3;
+	  /* Slightly darker blue on hover */
+	  border-color: #0056b3;
+  }
+ 
+</style>
+<main class="container my-4">
+	<nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'product-list' %}">Product List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.product_name }}</li>
+        </ol>
+    </nav>
+    
+	<!-- Product Details -->
+	<h3 class="my-4 border-bottom pb-1">{{ product.product_name }}</h3>
+	<div class="row">
+		<!-- Images -->
+		<div class="col-md-4">
+			<img src="{{ product.image1.url }}" class="card-img-top" alt="{{ product.product_name }}">
+		</div>
+		<div class="col-md-8">
+			<p>{{ product.product_name }}</p>
+			<hr/>
+			<table class="table table-bordered">
+				<tr>
+					<th>Make</th>
+					<td>{{ product.make }}</td>
+				</tr>
+				<tr>
+					<th>Category</th>
+					<td>{{ product.category }}</td>
+				</tr>
+				<tr>
+					<th>Key Features</th>
+					<td>{{ product.key_features|linebreaksbr }}</td>
+				</tr>
+				<tr>
+					<th>Technical Specifications</th>
+					<td>{{ product.technical_specifications|linebreaksbr }}</td>
+				</tr>
+				<tr>
+					<th>Technical Catalogue</th>
+					<td><a href="{{ product.technical_catalogue }}" target="_blank">{{ product.technical_catalogue }}</a></td>
+				</tr>
+				<tr>
+					<th>User Manual</th>
+					<td><a href="{{ product.user_manual }}" target="_blank">{{ product.user_manual }}</a></td>
+				</tr>
+				<tr>
+					<th>Datasheet</th>
+					<td><a href="{{ product.datasheet }}" target="_blank">{{ product.datasheet }}</a></td>
+				</tr>
+				<tr>
+					<th>Price</th>
+					<td>{{ product.price }}</td>
+				</tr>
+			</table>
+			<hr/>
+			<a href="{% url 'add_to_cart' product.id %}"><button class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to Cart</button></a>
+
+			<!-- Your existing input and add to cart button code goes here -->
+		</div>
+	</div>
+	<!-- Additional Details -->
+	<div class="row">
+		<div class="col-md-6">
+			<h3 class="my-3">Additional Details</h3>
+			<!-- Additional details table goes here -->
+		</div>
+	</div>
+	<div class="section-title">
+		<h2><center>You may also like</center></h2>
+	</div>
+	
+    <div class="row">
+        {% for similar_product in similar_products %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="{{ similar_product.image1.url }}" class="img-size" alt="{{ similar_product.product_name }}">
+                    <div class="card-body">
+                        <p class="product-price">Price: ${{ similar_product.price }}</p>
+						<h5 class="product-font product-name"> 
+							<a href="{% url 'product-detail' slug=product.slug %}">{{ similar_product.product_name }}</a>
+						</h5> 
+                        <p class="product-make">{{ similar_product.make }}</p>
+                        <!-- Add to Cart button or link -->
+                        <a href="{% url 'add_to_cart' similar_product.pk %}" class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+	
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(function (card) {
+            card.addEventListener('click', function (event) {
+                var productLink = card.querySelector('.product-name a');
+                if (productLink) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    window.location.href = productLink.href; // Redirect to the product detail page
+                }
+            });
+        });
+    });
+</script>
+	
+
+
+{% endblock %}

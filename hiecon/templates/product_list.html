@@ -1,0 +1,533 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .product-card .btn-primary {
+    display: none;
+    }
+
+
+  .product-card:hover .btn-primary {
+    display: block;
+   }
+   
+   .container-fluid{
+    margin: 5px;
+    padding: 0;
+    }
+    .category-table-container {
+        margin: 0;
+        padding: 0;
+        /* Set the top and bottom margin to 5px, and no left or right margin */
+    }
+
+    .category-col {
+        padding-right: 0;
+        /* Updated to remove right padding */
+        padding-left: 0;
+        /* Updated to remove left padding */
+    }
+
+  
+
+    /* Reduce font size for product names */
+    h5.product-name {
+        font-size: 13px;
+        /* Updated font size */
+        height: auto;
+        color: black;
+        /* Allow variable height for product name */
+    }
+    h5.product-name a {
+       
+        color: black;
+        /* Allow variable height for product name */
+    }
+    h5.product-name a:hover{
+      
+        color: blue;
+        /* Allow variable height for product name */
+    }
+
+
+
+    .categories-table a {
+        color: black;
+    }
+
+
+    .categories-table a:hover {
+        color: blue;
+    }
+
+    .img-size {
+        max-height: 200px;
+        /* Set the maximum height */
+        width:200px;
+    }
+
+    body {
+        background-color: #f8f9fa;
+        /* Light gray background color */
+        color: #495057;
+        /* Text color */
+    }
+
+    .product-card {
+        height: 100%;
+        /* Set a fixed height for product cards */
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        /* Light gray border for product cards */
+        border-radius: 8px;
+        /* Rounded corners for product cards */
+        overflow: hidden;
+        /* Hide overflow to round corners properly */
+        transition: box-shadow 0.3s ease-in-out;
+        /* Smooth box-shadow transition on hover */
+    }
+
+    .product-card:hover {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+        /* Box shadow on hover */
+    }
+
+    .product-card img {
+        width: auto;
+        /* Allow the width to adjust proportionally */
+        height: 250px;
+        
+        /* Set a fixed height for the images */
+        border-bottom: 1px solid #ced4da;
+        /* Light gray border below the image */
+    }
+
+    /* Updated style for product price */
+    .product-card .card-body .product-price {
+        font-size: 18px;
+        /* Adjust the font size as needed */
+        font-weight: bold;
+        color: green;
+    }
+
+
+    .card-body {
+        padding: 15px;
+        flex: 1;
+        /* Allow the card body to take remaining space */
+        display: flex;
+        flex-direction: column;
+    }
+
+    h5.product-name {
+        font-size: 14px;
+        /* Set a fixed font size for product name */
+        height: 60px;
+        /* Set a fixed height for product name */
+        overflow: hidden;
+        margin-bottom: 0;
+        /* Hide overflow for longer names */
+    }
+
+    .product-make {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        /* Align buttons to the bottom */
+        height: 80px;
+        /* Set a fixed height for the button container */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        /* Primary blue color for buttons */
+        border-color: #007bff;
+        width: 100%;
+        /* Make buttons full width */
+        margin-top: 5px;
+        /* Add margin for better spacing between buttons */
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        /* Slightly darker blue on hover */
+        border-color: #0056b3;
+    }
+    /* .category-row {  
+        position: relative;
+        margin-bottom: 20px;
+    } */
+
+    .toggle-icon {
+        position: absolute;
+        right: 5px;
+        cursor: pointer;
+    }
+
+    .categories-table th {
+        cursor: pointer;
+    }
+
+    .tree-view {
+        display: none;  
+        
+    }
+    .tree-view th {
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff; /* Adjust the color as needed */
+    margin-bottom: 10px; /* Add space between headings and subcategories */
+   }
+
+
+    .tree-view ul {
+        list-style-type: none;
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    .tree-view li {
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 10px; /* Add more space between subcategories */
+        text-align: left;
+    }
+    .tree-view li::after {
+    content: none;
+}
+
+/* Remove border from active category row */
+.category-row.active {
+    border-bottom: none;
+}
+
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .col-lg-4 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* Adjust the grid for better alignment */
+    .category-col {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .product-col {
+        padding-right: 15px;
+        padding-left: 15px;
+        
+        /* padding: 10px; */
+        
+    }
+    
+
+    /* Responsive margin for smaller screens */
+    @media (max-width: 767.98px) {
+        .categories-table {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+    /* Additional styles for better alignment */
+    .category-col {
+        margin-bottom: 10px;
+    }
+
+    table .categories-table {
+        margin: 0;
+        padding: 0;
+    }
+    .categories-table {
+        margin: 0;
+        padding: 0;
+        border: none; 
+    }
+    
+
+    .categories-table th {
+        cursor: pointer;
+        
+        background-color: #007bff;
+        /* Primary blue color for category headers */
+        color: #fff;
+        /* White text color for category headers */
+        text-align: center;
+        padding: 15px;
+        /* Add padding for better spacing */
+        position: relative;
+    }
+    .categories-table td {
+        cursor: pointer;
+        text-align: left;
+        font-weight: bold;
+        padding: 15px;
+        /* Add padding for better spacing */
+        position: relative;
+        margin-bottom: 10px; /* Add margin to create space between categories */
+    }
+    .product-col .col-lg-3 {
+        margin-bottom: 20px; /* Add margin-bottom to create space between products */
+    }
+
+    /* Add margin-bottom to create space between rows */
+    .product-col .row {
+        margin-bottom: 20px;
+    }
+
+
+    .categories-table td:hover::after,
+    .categories-table th:hover::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        /* height: 2px; */
+        bottom: 0;
+        left: 0;
+        background-color: #007bff;
+        /* Primary blue color for underline */
+        animation: underline 0.3s ease-in-out forwards;
+    }
+
+    @keyframes underline {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 100%;
+        }
+    }
+
+    .tree-view a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .tree-view a:hover {
+        color: #007bff;
+    }
+
+    .tree-view i {
+        margin-right: 7px;
+        /* Added spacing between the icon and text */
+    }
+
+    .tree-view ul ul {
+        margin-top: 5px;
+        /* Added margin between nested lists */
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var categoryRows = document.querySelectorAll('.category-row');
+        var treeViews = document.querySelectorAll('.tree-view');
+        var isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
+
+        // Function to handle opening and closing of tree view
+        function toggleTreeView(category) {
+            var treeView = document.querySelector('.tree-view[data-category="' + category + '"]');
+            var isOpen = treeView.classList.contains('open');
+
+            // Close all other tree views
+            treeViews.forEach(function (otherTreeView) {
+                if (otherTreeView !== treeView) {
+                    otherTreeView.style.display = 'none';
+                    otherTreeView.classList.remove('open');
+                }
+            });
+
+            // Toggle the visibility of the clicked tree view
+            if (isOpen) {
+                treeView.style.display = 'none';
+                treeView.classList.remove('open');
+            } else {
+                treeView.style.display = 'block';
+                treeView.classList.add('open');
+            }
+        }
+
+        // Event listeners for category rows
+        categoryRows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                var category = row.dataset.category;
+                toggleTreeView(category);
+            });
+        });
+
+        // Check if there are category and subcategory parameters in the URL
+        var selectedCategory = getParameterByName('category');
+        var selectedSubcategory = getParameterByName('subcategory');
+
+        // Show the tree view corresponding to the selected category
+        if (selectedCategory) {
+            var selectedTreeView = document.querySelector('.tree-view[data-category="' + selectedCategory + '"]');
+            if (selectedTreeView) {
+                selectedTreeView.style.display = 'block';
+                selectedTreeView.classList.add('open');
+            }
+        }
+
+        // Function to get URL parameters by name
+        function getParameterByName(name) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(function (card) {
+            card.addEventListener('click', function (event) {
+                var productLink = card.querySelector('.product-name a');
+                if (productLink) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    window.location.href = productLink.href; // Redirect to the product detail page
+                }
+            });
+        });
+    });
+</script>
+
+
+<div class="container-fluid"></br>
+    <div class="row">
+        {% with selected_category=request.GET.category subcategory=request.GET.subcategory %}
+        <div class="col-lg-2"></br>
+            <div class="section-title">
+                <h2>Categories</h2>
+            </div>
+            <div class="category-table">
+                <table class="table categories-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="{% url 'product-list' %}"
+                                    class="{% if not selected_category %}active{% endif %}">
+                                    All Products
+                                </a>
+                            </td>
+                        </tr>
+                        {% for category, subcategories in categories_with_products.items %}
+                        <tr class="category-row" data-category="{{ category }}">
+                            <td>
+                                <a href="?category={{ category }}"
+                                    class="category-link {% if category == selected_category %}active{% endif %}"
+                                    data-category="{{ category }}">
+                                    {{ category }}
+                                </a>
+                                <span class="toggle-icon" data-category="{{ category }}"><i class="fas fa-chevron-down"></i></span>
+                            </td>
+                        </tr>
+                        
+                        <tr class="tree-view {% if category == selected_category %}open{% endif %}"
+                            data-category="{{ category }}">
+                            <td>
+                                <ul>
+                                    {% for subcategory, products in subcategories.items %}
+                                    <li>
+                                        <a href="?category={{ category }}&subcategory={{ subcategory }}"
+                                            class="{% if subcategory == selected_subcategory %}active{% endif %}">
+                                            <i class="fas fa-angle-right"></i> {{ subcategory }}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endwith %}
+        <!-- Product List -->
+        <div class="col-lg-10">
+            {% if messages %}
+            {% for message in messages %}
+            <center>
+                <div class="col-md-3 col-lg-4 alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            </center>
+            {% endfor %}
+            {% endif %}
+
+            <div class="container-fluid">
+                <br />
+                <div class="section-title">
+                    <h2>Product List</h2>
+                </div>
+                {% if selected_category %}
+                <h4>{{ selected_category }}</h4>
+                <hr />
+                <div class="row">
+                    {% for product in category_products %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                            <img src="{{ product.image1.url }}" class="card-img-top" alt="{{ product.product_name }} ">
+                            <div class="card-body">
+                                <p class="product-price">Price: ${{ product.price }}</p>
+                                <h5 class="product-font product-name">{{ product.product_name }}</h5>
+                                <p class="product-make">{{ product.make }}</p>
+                                <!-- <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary ">View
+                                    Details</a> -->
+                                <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-primary">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="row" id="product-list">
+                    {% for product in products %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                            <img src="{{ product.image1.url }}" class="img-size " alt="{{ product.product_name }} ">
+                            <div class="card-body">
+                                <!-- <p class="product-price">₹ {{ product.price }}</p> -->
+                               <h5 class="product-font product-name"> 
+                                    <a href="{% url 'product-detail' slug=product.slug %}">{{ product.product_name }}</a>
+
+                                </h5> 
+                                <p class="product-make">{{ product.make }}</p>
+
+
+                                <!-- <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary">View Details</a> -->
+                                <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-primary">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <hr>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+{% endblock %}

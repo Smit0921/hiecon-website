@@ -1,0 +1,29 @@
+<!-- _category_table.html -->
+<div class="col-lg-4 category-col">
+    <div class="section-title">
+        <h2>Categories</h2>
+    </div>
+    <table class="table categories-table">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category, products in categories_with_products.items %}
+            <tr class="category-row" data-category="{{ category }}">
+                <td><a href="?category={{ category }}">{{ category }}</a></td>
+            </tr>
+            <tr class="tree-view" data-category="{{ category }}">
+                <td>
+                    <ul>
+                        {% for product in products %}
+                        <li>{{ product }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

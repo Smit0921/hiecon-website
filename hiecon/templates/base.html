@@ -1,0 +1,293 @@
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+  
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+    <title>Hiecon</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+       
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        crossorigin="anonymous">
+
+    <link rel="icon" sizes="192x192"
+        href="https://static.wixstatic.com/media/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png"
+        type="image/png" />
+    <link rel="shortcut icon"
+        href="https://static.wixstatic.com/media/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png"
+        type="image/png" />
+    <link rel="apple-touch-icon"
+        href="https://static.wixstatic.com/media/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png/v1/fill/w_180%2Ch_180%2Clg_1%2Cusm_0.66_1.00_0.01/9a11c3_d218bc6b629c402d9c1bf28761a5ec13%7Emv2.png"
+        type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
+    
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'hiecon/vendor/aos/aos.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+ 
+    
+  <!-- Template Main CSS File -->    
+  <link type="text/css" href="{% static 'hiecon/css/style.css'%}" rel="stylesheet">
+    
+    <link href="{% static 'hiecon/css/font-awesome.min.css'%}" rel="stylesheet">
+    <!-- <link href="{% static 'hiecon/css/register.css'%}" rel="stylesheet"> -->
+    <!-- scripts -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" async></script>
+    
+    <!-- fix header script -->
+
+<script>
+    
+      document.addEventListener("DOMContentLoaded", function () {
+        var header = document.getElementById("header");
+    
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 100) {
+            header.classList.add("fixed");
+          } else {
+            header.classList.remove("fixed");
+          }
+        });
+      }); 
+    </script>
+    <!-- <script>
+      function toggleMenu() {
+    var menuItems = document.querySelector('.menu-items');
+    var menuIcon = document.querySelector('.menu-icon');
+    var closeIcon = document.querySelector('.close-icon');
+
+    menuItems.classList.toggle('show');
+    menuIcon.style.display = (menuItems.classList.contains('show')) ? 'none' : 'block';
+    closeIcon.style.display = (menuItems.classList.contains('show')) ? 'block' : 'none';
+}
+    </script> -->
+</head>
+<body>
+  <!-- Hamburger Menu icon -->
+
+<!-- End -->
+
+    <!-- ======= Top Bar ======= -->
+    <section id="topbar" class="d-flex align-items-center">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+          <div class="contact-info d-flex align-items-center">
+            <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com"> sales@hiecon.com</a></i>
+            <i class="bi bi-phone d-flex align-items-center ms-4"><span>+91- 9974707600</span></i>
+          </div>
+          <div class="social-links d-none d-md-flex align-items-center">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+          </div>
+        </div>
+      </section>
+    
+      <!-- ======= Header ======= -->
+      <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+    
+          <h1 class=""> <a href="{% url 'index' %}"><img src="{%static 'hiecon/img/image.png'%}" alt="image" height="60px" width=""></h1></a>
+          <!-- Uncomment below if you prefer to use an image logo -->
+
+    
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="nav-link scrollto " href="{% url 'index' %}">HOME</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'about' %}">ABOUT US</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'services' %}">SOLUTIONS</a></li>
+              <li><a class="nav-link scrollto " href="{% url 'product-list' %}">PRODUCTS</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'team' %}">CAREERS</a></li>
+              <li><a class="nav-link scrollto" href="{% url 'contact' %}">CONTACT</a></li>
+              {% if user.is_authenticated %}
+                    <li><span>WELCOME {{ user.username }}</span></li>
+                    <li><a href="{% url 'logout'%}">Logout</a></li>
+                {% else %}
+                    <li class="dropdown">
+                        <a href="#"><span>MY ACCOUNT</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="{% url 'login' %}">Login/Sign In</a></li> 
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+              
+              
+                <li><a class="nav-link" href="{% url 'cart' %}">
+                  <img src="{%static 'hiecon\img\shopping-cart.png'%}" alt="" height="35px" width="35px">
+
+              </a></li>
+          <span id="cart-count">{{ cart_count }}</span>
+      </ul>
+            
+        <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+        
+    
+        </div>
+      </header>
+    
+
+    
+      {% block content%}
+    
+      {% endblock %}
+    
+      <!-- ======= Footer ======= -->
+      <footer id="footer">
+    
+        <div class="footer-newsletter">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+                <h4>Join Our Newsletter</h4>
+                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                <form id="subscriptionForm" action="{% url 'newsletter_subscribe' %}" method="post">
+                  {% csrf_token %}
+                  <input id="emailInput" type="email" name="email">
+                  <input type="submit" value="Subscribe">
+              </form>
+                {% if messages %}
+                      {% for message in messages %}
+                          <p style="font-weight: bold; font-size: large;">{{ message }}</p>
+                      {% endfor %}
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="footer-top">
+          <div class="container">
+            <div class="row">
+    
+              <div class="col-lg-3 col-md-6 footer-contact">
+                <h3>Head Office<span></span></h3>
+                <p>
+                    Ahmedabad,Gujarat<br/>
+                    152, Azad Society,
+                    Ambawadi, <br/>
+                    Ahmedabad - 380015 <br/> 
+                    Gujarat - INDIA <br><br>
+                  <strong>Phone:</strong><a href="tel:+91- 9974707600" style="color:gray;"> +91- 9974707600 </a><br>
+                  <strong>Email:</strong><a href="mailto:sales@hiecon.com "  style="color:gray;"> sales@hiecon.com </a> <br>
+                </p>
+              </div>
+    
+              <div class="col-lg-3 col-md-6 footer-contact">
+                <h3>Branch Office
+                  <span></span></h3>
+                <p>
+                    Coimbatore,Tamilnadu<br/>
+                    Old No 308, New No 99,<br/>
+                    SNR Chinnasamy Naidu Road,<br/>
+                    New Sidhhapudur,  Coimbatore - 641004<br/>
+                    Tamil Nadu - INDIA <br><br>
+                    <strong>Phone:</strong> <a href="tel:+919787710123" style="color:gray;"> +91- 9787710123</a><br>
+                    <strong>Email:</strong> <a href="mailto:salescbe@hiecon.com"style="color:gray;"> salescbe@hiecon.com</a>
+
+                </p>
+              </div>
+    
+              <div class="col-lg-3 col-md-6 footer-links footer-contact">
+                <h3>Our Services
+                  <span></span></h3>
+                <ul>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                </ul>
+              </div>
+    
+              <div class="col-lg-3 col-md-6 footer-links footer-contact">
+                <h3>Our Social Networks<span></span></h3>
+                <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                <div class="social-links mt-3">
+                  <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                  <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                  <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                  <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                  <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="container py-4">
+          <div class="copyright">
+            &copy; Copyright © 2024 <strong><span>Hiecon</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
+          <a href="https://bootstrapmade.com/"></a>
+          </div>
+        </div>
+      </footer><!-- End Footer -->
+    
+      <script src="{% static 'hiecon/vendor/purecounter/purecounter_vanilla.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/aos/aos.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/glightbox/js/glightbox.min.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/swiper/swiper-bundle.min.js'%}"></script>
+      <script src="{% static 'hiecon/vendor/waypoints/noframework.waypoints.js'%}"></script>
+      <!-- <script src="{% static 'hiecon/vendor/php-email-form/validate.js'%}"></script> -->
+      
+      <!-- Template Main JS File -->
+      <script src="{% static 'hiecon/js/main.js'%}"></script>
+     
+    </body>
+    <script>
+      // Function to display alert box with message from server
+      function showAlert(message) {
+          alert(message);
+      }
+  </script>
+  
+  <!-- Django template to handle server response and display alert box -->
+  {% if message %}
+  <script>
+      showAlert("{{ message }}");
+  </script>
+  {% endif %}
+
+
+  
+    
+    </html>

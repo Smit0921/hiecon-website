@@ -1,0 +1,517 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<style>
+  .icon-box {
+      width: 265px; /* Adjust the width as needed */
+      height: 200px; /* Adjust the height as needed */
+      margin: 20px ; /* Adjust the margin as needed */
+      padding: 50px; /* Adjust the padding as needed */
+  }
+  .hide-dot {
+  display: none;
+}
+
+  .icon-title {
+    font-size: 18px; /* Adjust the font size as needed */
+    text-align: center; /* Center-align the text */
+    margin-top: 10px; /* Add margin top to separate the text from the image */
+}
+@media (max-width: 992px) {
+        .icon-box {
+            width: 100%;
+            margin: 0 0 20px 0; / /* Set width to 48% for 2-column layout */
+        }
+    }
+
+    /* Adjust width for extra small screens (phones) */
+  
+    .name{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    /* Custom CSS for the solution details page */
+.solution-details-container {
+    padding: 40px;
+}
+
+.solution-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.solution-card-body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.solution-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 0;
+    margin-left: 10px; /* Adjust the spacing between arrow and solution name */
+}
+
+.arrow-icon {
+    font-size: 24px;
+    color: #007bff;
+    margin-right: 10px; /* Adjust the spacing between arrow and solution name */
+}
+
+.solution-details-container {
+    padding: 40px;
+}
+
+.solution-card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.solution-card-body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.solution-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.arrow-icon {
+    font-size: 24px;
+    color: #007bff;
+    margin-right: 10px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity for the blur effect */
+    backdrop-filter: blur(8px); /* Apply the blur effect to the background */
+}
+.modal-content {
+    width: 80%; /* Adjust width for smaller screens */
+    max-width: 500px; /* Set max-width to prevent overflow */
+    margin: 0 auto; /* Center the modal horizontally */
+  }
+
+  /* Ensure close button and title are always visible */
+  .modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .modal-content .solution-title {
+    margin-top: 20px; /* Add margin to separate title from content */
+  }
+
+  /* Ensure visibility of name */
+  .solution-details-container {
+    max-height: 60vh; /* Set max height for scrollable container */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
+  }
+
+ 
+</style>
+<div id="solution-modal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="solution-details-container" class="solution-details-container" data-aos="fade-up">
+          <!-- Solution details will be displayed here -->
+      </div>
+  </div>
+</div>
+<!-- <section id="solution-details" class="solution-details">
+  <div class="container solution-details-container" data-aos="fade-up">
+      <div class="container">
+          <div class="section-title">
+              <h2 style="font-size: large;">Solutions implemented in the {{ category }}</h2>
+              
+          </div>
+          <div class="row">
+              <div class="col-lg-12">
+                  {% for solution in solutions %}
+                  <div class="solution-card">
+                      <div class="solution-card-body">
+                          <i class="arrow-icon fas fa-arrow-right"></i><span class="solution-title">{{ solution.name }}</span>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+</section> -->
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="section-title">
+            <h2>Services</h2>
+            <h3> "Industrial Automation Solutions  with <span>IIoT for..."</span></h3>
+            <!-- <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p> -->
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+              <div  data-category="textile" onclick="showSolutionDetails('textile')" class="icon-box"style="background-image: url('{% static 'hiecon/img/texttile.webp' %}'); " >
+                <!-- <div class="icon"><i class="bx bxl-dribbble"></i></div> -->
+                <h4 class="icon-title">
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='textile' %}">.</a> -->
+                </h4>
+
+                <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('textile')"><center>Textile</center></a></div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+             
+              <div data-category="plastic" onclick="showSolutionDetails('plastic')" class="icon-box"style="background-image: url('{% static 'hiecon/img/plastic.webp' %}');">
+    
+                <!-- <div class="icon"><img width="50" height="50" src="https://img.icons8.com/ios/50/recycle-sign.png" alt="recycle-sign"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='plastic' %}">.</a> -->
+                </h4>
+                <!-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('plastic')"><center>Plastic</center></a></div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+
+              <div data-category="pharmaceutical" onclick="showSolutionDetails('pharmaceutical')"class="icon-box"style="background-image: url('{% static 'hiecon/img/pharma.webp' %}');">
+
+                <!-- <div class="icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAFRJREFUSEtjZKAxYKSx+QzEWvAfh0MI6ieoAGrwqAUEo3o0iMBBhCsYCIYfviSMnExHLUAPKXDoDK8gwpdaRjMawbw0GkQDH0QEXYBLAbF1MtkWAAC++BQZuFCLQQAAAABJRU5ErkJggg=="/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot"  href="{% url 'solution_detail' solution='pharmaceutical' %}">.</a> -->
+                </h4>
+                <!-- <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('pharmaceutical')" ><center>Pharmaceutical</center></a></div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+
+              <div data-category="packaging" onclick="showSolutionDetails('packaging')" class="icon-box"style="background-image: url('{% static 'hiecon/img/packaging.webp' %}');">
+    
+                <!-- <div class="icon"><i class="bx bx-package" ></i></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='packaging' %}">.</a> -->
+                </h4>
+                <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p> -->
+              </div>
+              <div class="name"><a href="#" onclick="openPopup('packaging')"><center>Packaging</center></a></div>
+              
+            </div>
+  
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+          
+              <div  data-category="hvac" onclick="showSolutionDetails('hvac')"class="icon-box"style="background-image: url('{% static 'hiecon/img/energy and hvac.webp' %}');">
+    
+                <!-- <div class="icon"><img width="36" height="36" src="https://img.icons8.com/external-tal-revivo-green-tal-revivo/36/external-air-circulation-inside-in-a-smart-home-hvac-house-green-tal-revivo.png" alt="external-air-circulation-inside-in-a-smart-home-hvac-house-green-tal-revivo"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='hvac' %}">.</a> -->
+                </h4>
+                <!-- <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p> -->
+              </div>
+              <div class="name"><a href="#" onclick="openPopup('hvac')"><center>HVAC</center></a></div>
+            </div>
+  
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+
+              <div data-category="paper & pulp" onclick="showSolutionDetails('paper & pulp')" class="icon-box"style="background-image: url('{% static 'hiecon/img/paper and pulp.webp' %}');">
+    
+                <!-- <div class="icon"><img width="50" height="50" src="https://img.icons8.com/ios/50/paper.png" alt="paper"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='paper & pulp' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('hvac')"><center>Paper & Pulp</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div data-category="energy" onclick="showSolutionDetails('energy')" class="icon-box"style="background-image: url('{% static 'hiecon/img/energy and hvac.webp' %}');">
+                
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='energy' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('hvac')"><center>Energy</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div data-category="material handling" onclick="showSolutionDetails('material handling')"  class="icon-box"style="background-image: url('{% static 'hiecon/img/material handling.webp' %}');">
+                <!-- <div class="icon"><i class="bx bx-arch"></i></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='material handling' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('material handling')" ><center>Material Handling</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div data-category="cement & ceramic" onclick="showSolutionDetails('cement & ceramic')" class="icon-box"style="background-image: url('{% static 'hiecon/img/cement.webp' %}');">
+                <!-- <div class="icon"><img width="64" height="64" src="https://img.icons8.com/external-line-icons-vinzence-studio/64/external-cement-construction-line-icons-vinzence-studio.png" alt="external-cement-construction-line-icons-vinzence-studio"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='cement & ceramic' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('cement & ceramic')"><center>Cement & Ceramic</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div data-category="food & beverages" onclick="showSolutionDetails('food & beverages')" class="icon-box"style="background-image: url('{% static 'hiecon/img/food.webp' %}');">
+                <!-- <div class="icon"><img width="16" height="16" src="https://img.icons8.com/office/16/food.png" alt="food"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='food & beverages' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a href="#" onclick="openPopup('food & beverages')"  ><center>Food & Beverages</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div  data-category="metal" onclick="showSolutionDetails('metal')" class="icon-box"style="background-image: url('{% static 'hiecon/img/metal.webp' %}');">
+                <!-- <div class="icon"><img width="50" height="50" src="https://img.icons8.com/ios/50/welder-shield-1.png" alt="welder-shield-1"/></div> -->
+                <h4>
+                  <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='metal' %}">.</a> -->
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('metal')"><center>Metal</center></a></div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div  data-category="chemical" onclick="showSolutionDetails('chemical')" class="icon-box"style="background-image: url('{% static 'hiecon/img/chemical.webp' %}');">
+                  
+                    <h4>
+                      <!-- <a class="hide-dot" href="{% url 'solution_detail' solution='chemical' %}">.</a> -->
+                    </h4>
+                
+              </div>
+              <div class="name"><a href="#" onclick="openPopup('chemical')"><center>Chemical</center></a></div>
+          </div>
+          
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+              <div  data-category="Water & Waste Water" onclick="showSolutionDetails('Water & Waste Water')" class="icon-box"style="background-image: url('{% static 'hiecon/img/water.webp' %}');">
+                <!-- <div class="icon"><i class="bx bx-arch"></i></div> -->
+                <h4><a class="hide-dot" href="">.</a>
+                </h4>
+                <!-- <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p> -->
+              </div>
+              <div class="name"><a  href="#" onclick="openPopup('Water & Waste Water')"><center>Water & Waste Water</center></a></div>
+            </div>
+  
+          </div>
+  
+        </div>
+      </section><!-- End Services Section -->
+      <script>
+        // Get all elements with the class "icon-box"
+        var iconBoxes = document.querySelectorAll('.icon-box');
+    
+        // Loop through each icon-box element
+        iconBoxes.forEach(function(iconBox) {
+            // Add a click event listener to the current icon-box element
+            iconBox.addEventListener('click', function() {
+                // Get the URL from the anchor tag within the current icon-box element
+                var url = this.querySelector('a').getAttribute('href');
+                // Redirect the user to the URL
+                window.location.href = url;
+            });
+        });
+    </script> 
+    <script>
+      // Add click event listeners to category icons
+      var iconBoxes = document.querySelectorAll('.icon-box');
+      iconBoxes.forEach(function(iconBox) {
+          iconBox.addEventListener('click', function() {
+              var category = this.getAttribute('data-category');
+              showSolutionDetails(category);
+          });
+      });
+  
+      // Function to show solution details in the modal
+      function showSolutionDetails(category) {
+          // Fetch solution details via AJAX
+          fetch(`/your-endpoint-for-fetching-solution-details/${category}/`)
+              .then(response => response.text())
+              .then(data => {
+                  // Populate modal content with solution details
+                  var solutionDetailsContainer = document.getElementById("solution-details-container");
+                  solutionDetailsContainer.innerHTML = data;
+                  // Display the modal
+                  modal.style.display = "block";
+              })
+              .catch(error => {
+                  console.error('Error fetching solution details:', error);
+              });
+      }
+  </script>
+   <script>
+    // Get the modal
+    var modal = document.getElementById("solution-modal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Add click event listeners to category icons
+    var iconBoxes = document.querySelectorAll('.icon-box');
+    iconBoxes.forEach(function(iconBox) {
+        iconBox.addEventListener('click', function() {
+            var category = this.getAttribute('data-category');
+            showSolutionDetails(category);
+        });
+    });
+
+    // Function to show solution details in the modal
+    function showSolutionDetails(category) {
+    // Construct the URL with the category parameter
+    const url = `/your-endpoint-for-fetching-solution-details/${category}/`;
+    
+    // Fetch solution details via AJAX
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            // Populate modal content with solution details
+            var solutionDetailsContainer = document.getElementById("solution-details-container");
+            solutionDetailsContainer.innerHTML = data;
+            // Display the modal
+            modal.style.display = "block";
+        })
+        .catch(error => {
+            console.error('Error fetching solution details:', error);
+        });
+}
+
+    // Close the modal when the <span> (x) is clicked
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    function openPopup(category) {
+    showSolutionDetails(category);
+    return false; // Prevent default link behavior
+}
+
+</script>
+<script>
+  function showSolutionDetails(category) {
+    // Fetch solution details via AJAX
+    fetch(`/your-endpoint-for-fetching-solution-details/${category}/`)
+        .then(response => response.text())
+        .then(data => {
+            // Populate modal content with solution details
+            var solutionDetailsContainer = document.getElementById("solution-details-container");
+            solutionDetailsContainer.innerHTML = data;
+            // Display the modal
+            modal.style.display = "block";
+            // Apply blur effect to the background
+            document.body.style.overflow = 'hidden'; // Hide scrollbars
+        })
+        .catch(error => {
+            console.error('Error fetching solution details:', error);
+        });
+}
+
+// Close the modal when the <span> (x) is clicked
+span.onclick = function() {
+    modal.style.display = "none";
+    // Remove blur effect from the background
+    document.body.style.overflow = ''; // Restore scrollbars
+}
+
+// Close the modal when the user clicks anywhere outside of the modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        // Remove blur effect from the background
+        document.body.style.overflow = ''; // Restore scrollbars
+    }
+}
+
+function openPopup(category) {
+    showSolutionDetails(category);
+    return false; // Prevent default link behavior
+}
+</script>
+<script>
+  // Ensure modal closes properly on mobile
+  function closePopup() {
+    modal.style.display = "none";
+    // Restore scrollbars
+    document.body.style.overflow = '';
+  }
+
+  // Ensure visibility of all names in the modal
+  function showSolutionDetails(category) {
+    // Fetch solution details via AJAX
+    fetch(`/your-endpoint-for-fetching-solution-details/${category}/`)
+      .then(response => response.text())
+      .then(data => {
+        // Populate modal content with solution details
+        var solutionDetailsContainer = document.getElementById("solution-details-container");
+        solutionDetailsContainer.innerHTML = data;
+        // Display the modal
+        modal.style.display = "block";
+        // Hide scrollbars
+        document.body.style.overflow = 'hidden';
+      })
+      .catch(error => {
+        console.error('Error fetching solution details:', error);
+      });
+  }
+
+  // Add click event listener to close button
+  document.querySelector('.close').addEventListener('click', closePopup);
+  
+  // Close the modal when the user clicks anywhere outside of the modal
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      closePopup();
+    }
+  }
+
+  // Function to open the popup
+  function openPopup(category) {
+    showSolutionDetails(category);
+    return false; // Prevent default link behavior
+  }
+</script>
+     
+ {% endblock %}
