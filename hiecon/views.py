@@ -164,22 +164,27 @@ def create_user(request):
     return render(request, 'register.html', {'userform': userform})
 
 def Login_user(request):
-
     if request.method == 'POST':
-        username=request.POST['username']
-        password=request.POST['password']
-        user = authenticate(request,username=username, password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+
         if user is not None:
             if user.is_active:
+                # Log the user in
                 login(request, user)
-                return redirect('index')
+                return redirect('index')  # Redirect to the appropriate page after login
+            else:
+                # Inactive user account
+                messages.error(request, 'Your account is disabled.')
         else:
-                messages.error(request, 'Invalid username or password')
-                return redirect('login')
-       
-    else:
-        form = AuthenticationForm()
-        return render(request, 'login.html',{'form':form})
+            # Invalid login credentials
+            messages.error(request, 'Invalid username or password')
+
+    # If the request is not POST or authentication fails, render the login page again
+    return render(request, 'login.html')
     
 def Logout_view(request):
     if request.user.is_authenticated:
