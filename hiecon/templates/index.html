@@ -5,7 +5,7 @@
 
 <style>
   /* Popup container */
-  
+
   #background-overlay {
     display: none;
     position: fixed;
@@ -14,9 +14,11 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    backdrop-filter: blur(5px); 
-}
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    backdrop-filter: blur(5px);
+  }
+
   .popup {
     display: none;
     position: fixed;
@@ -61,7 +63,7 @@
     color: blue;
   }
 
-  h3 {
+  #h2 {
     height: 100px;
     text-align: center;
   }
@@ -109,14 +111,14 @@
   <div class="container" data-aos="zoom-out" data-aos-delay="100">
     <h1>Welcome to <span style="color: red;">HIECON TECHNOLOGIES
       </span></h1>
-    <h2>
+    <h3>
       <p>Creating Values Through​<br />&nbsp;&nbsp;&nbsp;
         • Industry Solutions​<br />&nbsp;&nbsp;&nbsp;
         • Seamless Integrated Technologies​<br />&nbsp;&nbsp;&nbsp;
         • Excellent After-Sales​<br />&nbsp;&nbsp;&nbsp;
         • Technical Expertise
       </p>
-    </h2>
+    </h3>
 
     <div class="d-flex">
       <a href="{% url 'product-list' %}" class="btn-get-started scrollto">Hiecon Product Range</a>
@@ -135,28 +137,25 @@
         <div class="col-lg-12">
           <div class="section-title">
             <h2>Any query</h2>
-            <form id="query-form" method="post" action="{% url 'handle_query_form' %}" method="post" role="form" class="php-email-form">
+            <form id="query-form" method="post" action="{% url 'handle_query_form' %}" method="post" role="form"
+              class="php-email-form">
               {% csrf_token %}
               <div class="row">
                 <div class="col form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
-                    required>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="col form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                    required>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                  required>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message"
-                  required></textarea>
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-      
-                <input type="submit" name="button" class="btn btn-primary" value="Send Message">
+
+              <input type="submit" name="button" class="btn btn-primary" value="Send Message">
 
               <!-- </div> -->
             </form>
@@ -165,8 +164,8 @@
       </div>
     </div>
   </div>
-  </section>
-  
+</section>
+
 
 <section class="d-flex" id="Hero" style="background-color: #f8f9fa;">
   <div class="container" data-aos="fade-up" style="color: #495057; max-width: 800px; margin: 0 auto;">
@@ -181,14 +180,14 @@
           •Technical Expertise
 
           </p></h2> -->
-    <h2>
+    <h3>
       Dedicated to providing integrated industrial automation solutions for OEM and End Users effectively and
       efficiently.
-    </h2>
-    <h2>
+    </h3>
+    <h3>
       We provide optimized state-of-the-art automation solutions and shape the future of integration through our strong
       technical competency and excellent after-sales technical support.
-    </h2>     
+    </h3>
     <img src="{% static 'hiecon/img/products_edited.webp' %}" alt="" class="img-fluid">
     <!-- <img src="{% static 'hiecon/img/partner/weg.webp' %}" > -->
   </div>
@@ -214,8 +213,8 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="100">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/abb.webp' %}" style="height: 90x;"></h3>
-              <!-- <h4><sup>$</sup>0<span> / month</span></h4> -->
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/abb.webp' %}" style="height: 90x;"></h2>
+             
               <ul class="bullet-list">
                 <li><a href="{% url 'product-list' %}">Ac Drive</a></li>
 
@@ -223,15 +222,12 @@
 
                 <li><a href="{% url 'product-list' %}?">PLC</a></li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
 
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/onrob.webp' %}" alt=""></h3>
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/onrob.webp' %}" alt=""></h2>
               <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
               <ul class="bullet-list">
                 <li>Automation Components</li>
@@ -239,78 +235,20 @@
                 <li>Industrial Robots</li>
                 <li>Vision System</li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
-          <!-- <div class="col-md-6 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              
-               <img src="{% static 'hiecon/img/partner/ABB-Logo.webp' %}" >
-              
-              <h4 class="title"></h4>
-              <div class="text-item">
-              <ul class="bullet-list">
-                <a><li>Ac Drive</li></a>
-                <li>AC Motor</li>
-                <li>PLC</li>
-              </ul>
-            
-            </div>
-              
-            </div>
-            
-          </div>
-
-          <div class="col-md-4 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              
-              <img src="{% static 'hiecon/img/partner/omron.webp' %}"  alt="">
-              <h4 class="title"></h4>
-             
-              <div class="text-item">
-              <ul class="bullet-list">
-                <li>Automation Components</li>
-                <li>Motion Controllers</li>
-                <li>Industrial Robots</li>
-                <li>Vision System</li>
-              </ul>
-            </div>
-              
-            </div>
-          </div>
-      -->
-
-          <!-- <div class="col-md-4 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              
-              <img src="{% static 'hiecon/img/partner/serad.webp' %}"  alt="">
-              <h4 class="title"></h4>
-              <div class="text-item">
-              <ul class="bullet-list">
-                <li>Servo Drives & Motors</li>
-              
-              </ul>
-              </div>
-
-            </div>
-          </div> -->
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="100">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/serad.webp' %}" alt=""></h3>
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/serad.webp' %}" alt=""></h2>
               <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
               <ul class="bullet-list">
                 <li><a href="{% url 'product-list' %}?category=SERAD">Servo Drives & Motors</a></li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/weintek.webp' %}" alt=""></h3>
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/weintek.webp' %}" alt=""></h2>
               <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
               <ul class="bullet-list">
                 <li><a href="{% url 'product-list' %}?category=HMI&subcategory=Standard%20HMI">Standard HMI</a></li>
@@ -318,152 +256,30 @@
                 <li><a href="{% url 'product-list' %}?category=Weintek%20Remote%20I/O">Remote I/O</a></li>
                 <li><a href="{% url 'product-list' %}?category=(IIOT)%20Products">IIot Products</a></li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
-
-
-          <!-- <div class="col-md-4 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-             
-              <img src="{% static 'hiecon/img/partner/weintek.webp' %}"   alt=>
-              <h4 class="title"></h4>
-              <div class="text-item">
-              <ul class="bullet-list">
-                <li>Standard HMI</li>
-                <li>Advance HMI</li>
-                <li>Remote I/O</li>
-                <li>IIot Products</li>
-              </ul>
-              </div>
-              
-            </div>
-          </div> -->
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/g.webp' %}" height="75px" alt=""></h3>
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/g.webp' %}" height="75px" alt=""></h2>
               <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
               <ul class="bullet-list">
                 <li>Servo Motors</li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
 
-          <!-- 
-          <div class="col-md-4 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              
-              <img src="{% static 'hiecon/img/partner/g.webp' %}"   alt=''>
-              <h4 class="title"></h4>
-              <div class="text-item">
-              <ul class="bullet-list">
-                <li>Servo Motors</li>
-               
-              </ul>
-              </div>
-              
-            </div>
-          </div>
-           -->
           <div class="col-lg-4 col-md-4 mt-5" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <h3> <img src="{% static 'hiecon/img/partner/weg.webp' %}" alt=""></h3>
+              <h2 id="h2"> <img src="{% static 'hiecon/img/partner/weg.webp' %}" alt=""></h2>
               <!-- <h4><sup>$</sup>19<span> / month</span></h4> -->
               <ul class="bullet-list">
                 <li>AC Motors</li>
               </ul>
-              <!-- <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div> -->
             </div>
           </div>
 
 
-          <!-- <div class="col-md-4 col-lg-4 mb-5">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-            
-              <div class="icon"><img src="{% static 'hiecon/img/partner/weg.webp' %}"  alt="img"></div>
-              <h4 class="title"></h4>
-              <div class="text-item">
-              <ul class="bullet-list">
-                <li>AC Motors</li>
-              </ul>
-              </div>
-              
-            </div>
-          </div>
 
-        </div> 
-
-      </div>
-    </section>
-    
-
-    <!-- ======= Skills Section ======= -->
-          <!-- <section id="skills" class="skills">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6">
-   
-            <div class="progress">
-              <span class="skill">HTML <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">CSS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">JavaScript <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill">PHP <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">WordPress/CMS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Photoshop <i class="val">55%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
 
           <!-- ======= Counts Section ======= -->
           <section id="counts" class="counts">
@@ -500,14 +316,6 @@
                     <p>Team Strength</p>
                   </div>
                 </div>
-                <!-- 
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hard Workers</p>
-            </div>
-          </div> -->
 
               </div>
 
@@ -564,8 +372,8 @@
                       <h4>Ceo &amp; Founder</h4>
                       <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                        Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                        <!-- Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                        Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper. -->
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                       </p>
                     </div>
@@ -578,8 +386,8 @@
                       <h4>Designer</h4>
                       <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
-                        malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                        <!-- Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram
+                        malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa. -->
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                       </p>
                     </div>
@@ -592,8 +400,8 @@
                       <h4>Store Owner</h4>
                       <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
-                        minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                        <!-- Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis
+                        minim tempor labore quem eram duis noster aute amet eram fore quis sint minim. -->
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                       </p>
                     </div>
@@ -605,9 +413,9 @@
                       <h4>Freelancer</h4>
                       <p>
                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                        Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
+                        <!-- Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim
                         velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum
-                        veniam.
+                        veniam. -->
                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                       </p>
                     </div>
@@ -634,214 +442,6 @@
 
             </div>
           </section>
-
-          <!-- ======= Portfolio Section ======= -->
-          <!-- <section id="portfolio" class="portfolio">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <h3>Check our <span>Portfolio</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
-                 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-1.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-1.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-2.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-2.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-3.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 2</h4>
-              <p>App</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-3.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-4.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 2</h4>
-              <p>Card</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-4.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-4.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 2</h4>
-              <p>Web</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-5.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-6.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 3</h4>
-              <p>App</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-6.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-7.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 1</h4>
-              <p>Card</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-7.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-8.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 3</h4>
-              <p>Card</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-8.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="{%static 'hiecon/img/portfolio/portfolio-9.jpg'%}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="{%static 'hiecon/img/portfolio/portfolio-9.jpg'%}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-     -->
-          <!-- ======= Pricing Section ======= -->
-          <!-- <section id="pricing" class="pricing">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Pricing</h2>
-          <h3>Check our <span>Pricing</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="box">
-              <h3>Free</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
-            <div class="box featured">
-              <h3>Business</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
-            <div class="box">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-            <div class="box">
-              <span class="advanced">Advanced</span>
-              <h3>Ultimate</h3>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
- -->
-          
-
   </main><!-- End #main -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -862,107 +462,104 @@
     });
   </script>
   <script>
-   document.addEventListener("DOMContentLoaded", function() {
-    var popup = document.getElementById("popup-form");
-    var closeBtn = document.querySelector(".popup .close");
-    var backgroundOverlay = document.getElementById("background-overlay");
+    document.addEventListener("DOMContentLoaded", function () {
+      var popup = document.getElementById("popup-form");
+      var closeBtn = document.querySelector(".popup .close");
+      var backgroundOverlay = document.getElementById("background-overlay");
 
-    // Function to show the popup form and blur the background
-    function showPopup() {
+      // Function to show the popup form and blur the background
+      function showPopup() {
         popup.style.display = "block";
         backgroundOverlay.style.display = "block";
-    }
+      }
 
-    // Function to hide the popup form and remove the blur from the background
-    function hidePopup() {
+      // Function to hide the popup form and remove the blur from the background
+      function hidePopup() {
         popup.style.display = "none";
         backgroundOverlay.style.display = "none";
-    }
+      }
 
-    // Show the popup form when the page is loaded
-    showPopup();
-                        
-    // Add event listener to close button
-    closeBtn.addEventListener("click", function() {
+      // Show the popup form when the page is loaded
+      showPopup();
+
+      // Add event listener to close button
+      closeBtn.addEventListener("click", function () {
         // Hide the popup form when the close button is clicked
         hidePopup();
-    });
+      });
 
-    // Add event listener to window click
-    window.addEventListener("click", function(event) {
+      // Add event listener to window click
+      window.addEventListener("click", function (event) {
         // Hide the popup form if the click is outside the popup
         if (event.target === backgroundOverlay) {
-            hidePopup();
+          hidePopup();
         }
-    });
+      });
 
-    // Function to hide popup form
-    function hidePopupForm() {
+      // Function to hide popup form
+      function hidePopupForm() {
         hidePopup();
-    }
+      }
 
-    // Add an event listener to the form submission
-    var form = document.getElementById("query-form");
-    form.addEventListener("submit", function() {
+      // Add an event listener to the form submission
+      var form = document.getElementById("query-form");
+      form.addEventListener("submit", function () {
         // Hide the popup form when the form is submitted
         hidePopupForm();
+      });
     });
-});
 
-</script>
+  </script>
 
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       var form = document.getElementById("query-form");
       var submitButton = form.querySelector('[type="submit"]');
-  
-      form.addEventListener("submit", function(event) {
+
+      form.addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
-        
+
         // Check if the button is already disabled to prevent multiple submissions
         if (submitButton.disabled) {
           return;
         }
-        
+
         // Disable the submit button to prevent multiple submissions
         submitButton.disabled = true;
-  
+
         // Get form data
         var formData = new FormData(form);
-  
+
         // Send form data via AJAX
         fetch(form.action, {
           method: form.method,
           body: formData
         })
-        .then(response => {
-          if (response.ok) {
-            // Form submitted successfully
-            // Display success message in a popup
-            alert("Thank You! Your enquiry has been submitted successfully.");
-            // Optionally, reset the form after successful submission
-            form.reset();
-          } else {
-            // Form submission failed
+          .then(response => {
+            if (response.ok) {
+              // Form submitted successfully
+              // Display success message in a popup
+              alert("Thank You! Your enquiry has been submitted successfully.");
+              // Optionally, reset the form after successful submission
+              form.reset();
+            } else {
+              // Form submission failed
+              // Display an error message
+              alert("An error occurred. Please try again later.");
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
             // Display an error message
             alert("An error occurred. Please try again later.");
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          // Display an error message
-          alert("An error occurred. Please try again later.");
-        })
-        .finally(() => {
-          // Re-enable the submit button after form submission (whether successful or not)
-          submitButton.disabled = false;
-        });
+          })
+          .finally(() => {
+            // Re-enable the submit button after form submission (whether successful or not)
+            submitButton.disabled = false;
+          });
       });
     });
   </script>
-  
-
-
 
   {% endblock %}

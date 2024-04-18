@@ -430,5 +430,5 @@ def newsletter_subscribe(request):
         else:
             if 'email' in form.errors:
                 message = 'You are already subscribed.'
-
+    
     return render(request, 'index.html', {'message': message})

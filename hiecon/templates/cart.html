@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{%load static%}
 {% block title %} My Cart {% endblock %}
 {% block content %}
-<div class="container mt-5">
+ 
+ 
+    <div class="container mt-5">
     <h2>Your Cart</h2>
         {% if messages %}
             <div class="alert alert-primary" role="alert">
@@ -11,13 +14,13 @@
             </div>
         {% endif %}
     {% if cart_products %}
-    <form method="post" action="{% url 'submit_cart' %}">
+     <form method="post" action="{% url 'submit_cart' %}">
         {% csrf_token %}
         <table class="table">
             <thead>
                 <tr>
                     <th>image</th>
-                    <th>Product Name</th>
+                    <th>Product Name</th>      
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
@@ -31,11 +34,11 @@
                             <img src="{{ cart_product.product.image1.url }}" alt="{{ cart_product.product.name }}" style="max-width: 50px; max-height: 50px;">
                         </td>
                         <td>{{ cart_product.product.product_name}}</td>
-                        <td>INR{{ cart_product.product.price }}</td>
+                        <td>₹ {{ cart_product.product.price }}</td>
                         <td>
                             {{ cart_product.quantity }}
                         </td>
-                        <td>INR {{ cart_product.subtotal }}</td>
+                        <td>₹ {{ cart_product.subtotal }}</td>
                         <td>
                             <a href="{% url 'update_quantity' cart_product.id %}?action=increment" class="btn btn-primary">+</a>
                             <a href="{% url 'update_quantity' cart_product.id %}?action=decrement" class="btn btn-warning">-</a>
@@ -49,12 +52,12 @@
             <tfoot>
                 <tr>
                     <td colspan="3">Total Cost:</td>
-                    <td>INR {{ total_cost }}</td>
+                    <td style="font-weight: bold;">INR {{ total_cost }}</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit" class="btn btn-success">Submit Cart</button>
+                        <button type="submit" value="submit" class="btn btn-success">Submit Cart</button>
                     </td>
                 </tr>
             </tfoot>
@@ -63,10 +66,5 @@
         <p>Your cart is empty.</p>
     {% endif %}
 </div>
-
-<!-- Include Bootstrap JS and any other scripts as needed -->
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 {% endblock %}

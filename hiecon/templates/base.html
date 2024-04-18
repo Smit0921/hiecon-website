@@ -171,7 +171,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-6">
                 <h4>Join Our Newsletter</h4>
-                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                <p style="font-weight: bold;">Subscribe and get updated</p>
                 <form id="subscriptionForm" action="{% url 'newsletter_subscribe' %}" method="post">
                   {% csrf_token %}
                   <input id="emailInput" type="email" name="email">
@@ -287,4 +287,4 @@
   </script>
   {% endif %}
 
-    </html>
+</html>
