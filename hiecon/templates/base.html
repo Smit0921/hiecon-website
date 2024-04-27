@@ -52,6 +52,9 @@
     <link href="{% static 'hiecon/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
     <link href="{% static 'hiecon/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
     <link href="{% static 'hiecon/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+    <link href="{% static 'hiecon/css/lightbox.min.css' %}" rel="stylesheet">
+
+<!-- Lightbox2 JavaScript -->
 
  
     
@@ -63,9 +66,12 @@
     <!-- scripts -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" async></script>
+
     
     <!-- fix header script -->
-
+<style>
+  
+</style>
 <script>
     
       document.addEventListener("DOMContentLoaded", function () {
@@ -113,7 +119,6 @@
         </div>
       </section>
     
-      <!-- ======= Header ======= -->
       <header id="header" class="d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
     
@@ -127,7 +132,7 @@
               <li><a class="nav-link scrollto" href="{% url 'about' %}">ABOUT US</a></li>
               <li><a class="nav-link scrollto" href="{% url 'services' %}">SOLUTIONS</a></li>
               <li><a class="nav-link scrollto " href="{% url 'product-list' %}">PRODUCTS</a></li>
-              <li><a class="nav-link scrollto" href="{% url 'team' %}">CAREERS</a></li>
+              <!-- <li><a class="nav-link scrollto" href="{% url 'team' %}">CAREERS</a></li> -->
               <li><a class="nav-link scrollto" href="{% url 'contact' %}">CONTACT</a></li>
               {% if user.is_authenticated %}
                     <li><span>WELCOME {{ user.username }}</span></li>
@@ -148,6 +153,17 @@
 
               </a></li>
           <span id="cart-count">{{ cart_count }}</span>
+          <li class="nav-link">
+            <form method="GET" action="{% url 'product-list' %}" class="search-form">
+              <div class="search-container d-flex align-items-center">
+                  <input type="text" name="query" value="{{ search_query }}" placeholder="Search products..." class="search-box">
+                  <button type="submit" class="search-button">
+                      <i class="fa fa-search"></i>
+                  </button>
+              </div>
+              
+          </form>
+          </li>
       </ul>
             
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -156,6 +172,52 @@
     
         </div>
       </header>
+    
+    <!-- JavaScript function for search -->
+    <script>
+        function searchProducts() {
+            const searchInput = document.getElementById('search-input');
+            const query = searchInput.value;
+            // Redirect to the product list page with the search query as a parameter
+            window.location.href = `{% url 'product-list' %}?q=` + encodeURIComponent(query);
+        }
+    </script>
+    
+    <!-- CSS for the search container -->
+    <style>
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+    
+        .search-box {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-right: 5px; /* Add margin for spacing between search box and button */
+        }
+    
+        .search-box:focus {
+            border-color: #007bff; /* Change border color when focused */
+        }
+    
+        .search-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .search-button:hover {
+            background-color: #0056b3; /* Change background color when hovered */
+        }
+    </style>
+    
     
 
     
@@ -271,6 +333,7 @@
       
       <!-- Template Main JS File -->
       <script src="{% static 'hiecon/js/main.js'%}"></script>
+      <script src="{% static 'hiecon/js/lightbox.min.js' %}"></script>
      
     </body>
     <script>

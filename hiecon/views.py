@@ -17,6 +17,7 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.http import HttpResponseBadRequest
+from .forms import ProductSearchForm
 # from django.contrib.auth.models import User
 
 
@@ -70,39 +71,87 @@ class ProductListView(ListView):
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
-    paginate_by = 40
+    paginate_by = 8  # Set to 8 products per page
 
     def get_queryset(self):
+        # Start with all products
+        queryset = Product.objects.all()
+        
+        # Check if there is a search query
+        search_query = self.request.GET.get('query')
+        if search_query:
+            # Filter products based on the search query
+            queryset = queryset.filter(product_name__icontains=search_query)
+        
+        # Additional filtering based on category, subcategory, and make (brand)
         category = self.request.GET.get('category')
         subcategory = self.request.GET.get('subcategory')
+        make = self.request.GET.get('make')
 
-        if category and subcategory:
-            return Product.objects.filter(category=category, subcategory=subcategory)
-        elif category:
-            return Product.objects.filter(category=category)
-        else:
-            return Product.objects.all()
+        if category:
+            queryset = queryset.filter(category=category)
+        if subcategory:
+            queryset = queryset.filter(subcategory=subcategory)
+        if make:
+            queryset = queryset.filter(make=make)
+        
+        return queryset
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Fetch distinct categories and subcategories
+        
+        # Additional context data (e.g., categories, brands) can be added here
+        # Fetch distinct categories
         categories = Product.objects.values_list('category', flat=True).distinct()
         context['categories'] = categories
 
+        # Fetch distinct makes (brands)
+        makes = Product.objects.values_list('make', flat=True).distinct()
+        
+        # Create a dictionary to hold makes and their product counts
+        make_product_counts = {}
+        for make in makes:
+            count = Product.objects.filter(make=make).count()  # Count products for each make
+            make_product_counts[make] = count
+        
+        # Add makes and their counts to context
+        context['makes_with_counts'] = make_product_counts
+        
+        # Organize categories with subcategories and products
         categories_with_products = {}
-
         for category in categories:
             subcategories = Product.objects.filter(category=category).values_list('subcategory', flat=True).distinct()
             subcategories_with_products = {}
-
+            
             for subcategory in subcategories:
+                # Filter products based on category and subcategory
                 products = Product.objects.filter(category=category, subcategory=subcategory)
+                # Store the product names for each subcategory
                 subcategories_with_products[subcategory] = [product.product_name for product in products]
-
+            
+            # Store subcategories with products for each category
             categories_with_products[category] = subcategories_with_products
-
+        
+        # Add categories with products to context
         context['categories_with_products'] = categories_with_products
+        
+        # Add selected make to context for the template
+        context['selected_make'] = self.request.GET.get('make')
+        
+        layout = self.request.GET.get('layout', 'grid')  # Default layout to grid
+
+        # Add the layout choice to context
+        context['selected_layout'] = layout
+        context['search_query'] = self.request.GET.get('query', '')
+
+        # Check if any products were found
+        context['products_found'] = context['products'].exists()
+
+        # Fetch distinct categories and makes
+        context['categories'] = Product.objects.values_list('category', flat=True).distinct()
+        context['makes'] = Product.objects.values_list('make', flat=True).distinct()
+
         return context
     
 class ProductDetailView(DetailView):
@@ -120,9 +169,20 @@ class ProductDetailView(DetailView):
         else:
             # Otherwise, treat it as a slug
             return get_object_or_404(Product, slug=lookup)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Retrieve the product object
+        product = context['product']
 
+        # Create a list of image URLs from the product object
+        images = []
+        for image_num in range(1, 6):
+            image_field = getattr(product, f'image{image_num}', None)
+            if image_field and image_field.url:
+                images.append(image_field.url)
+      
+        
         # Get the current product's category and subcategory
         current_category = self.object.category
         current_subcategory = self.object.subcategory
@@ -133,9 +193,9 @@ class ProductDetailView(DetailView):
 
         # Add the similar products to the context
         context['similar_products'] = similar_products
-
+        context['images'] = images
         return context
-        
+
 def create_user(request):
     if request.method == 'POST':
         userform = CustomerRegistrationForm(request.POST)

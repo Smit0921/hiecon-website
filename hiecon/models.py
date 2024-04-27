@@ -24,7 +24,7 @@ class Product(models.Model):
     subcategory = models.CharField(max_length=255, blank=True, null=True)
     make = models.CharField(max_length=255)
     product_name = models.CharField(max_length=255)
-    price=models.PositiveIntegerField()
+    Sku = models.CharField(max_length=50, unique=True, null=True, blank=True)
     key_features = models.TextField()
     technical_specifications = models.TextField()
     technical_catalogue = models.URLField(blank=True)

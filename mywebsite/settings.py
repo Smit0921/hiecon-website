@@ -146,7 +146,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host (e.g., smtp.gmail.
 EMAIL_PORT = 587  # Replace with your email port
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'smit.hiecon18@gmail.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'sohz qqvh jrfp zqct'  # Replace with your email password
+EMAIL_HOST_PASSWORD = 'ofpw jphw qwre ygik'  # Replace with your email password
 
 
  

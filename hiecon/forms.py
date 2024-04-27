@@ -25,3 +25,6 @@ class NewsletterSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = ['email']
+        
+class ProductSearchForm(forms.Form):
+    query = forms.CharField(max_length=100, label='Search for products')
