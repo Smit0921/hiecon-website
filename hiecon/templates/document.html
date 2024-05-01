@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Table</title>
+</head>
+<body>
+  <br/><br/>
+  <div class="container">
+    <div class="col-xs-12  text-right">
+      <a href="/" class="btn btn-primary" role="button">Back to Home</a>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 "><br>
+        <h2 class="text-center"><strong>Document List</strong></h2>
+      </div>  
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-xs-12 ">
+        <label for="myInput">Search:</label>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+      </div>
+    </div>
+    <br />
+    <br>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Document type</th>
+            <th>Document Link</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {% for product in products %}
+          <tr>
+              <td><img src="{{ product.image1.url }}" alt="" style="max-width: 50px; max-height: 50px"></td>
+              <td>{{  product.product_name }}</td>
+              <td>Technical Catalogue</td>
+              <td><a href="{{ product.technical_catalogue }}" target=""><i class="fa fa-link" aria-hidden="true"></i></i></a>
+              </td>
+          </tr>
+          <tr>
+              <td></td>
+              <td style="color: transparent;">{{  product.product_name }}</td>
+              <td>User Manual</td>
+              <td><a href="{{ product.user_manual }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a></td>
+          </tr>
+          <tr>
+              <td></td>
+              <td style="color: transparent;">{{  product.product_name }}</td>
+              <td>Datasheet</td>
+              <td><a href="{{ product.datasheet }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+      });
+    });
+  </script>
+
+  
+{% endblock %}

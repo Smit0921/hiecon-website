@@ -65,9 +65,9 @@
     <!-- <link href="{% static 'hiecon/css/register.css'%}" rel="stylesheet"> -->
     <!-- scripts -->
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" async></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <!-- fix header script -->
 <style>
   
@@ -132,7 +132,7 @@
               <li><a class="nav-link scrollto" href="{% url 'about' %}">ABOUT US</a></li>
               <li><a class="nav-link scrollto" href="{% url 'services' %}">SOLUTIONS</a></li>
               <li><a class="nav-link scrollto " href="{% url 'product-list' %}">PRODUCTS</a></li>
-              <!-- <li><a class="nav-link scrollto" href="{% url 'team' %}">CAREERS</a></li> -->
+              <li><a class="nav-link scrollto" href="{% url 'team' %}">DOCS</a></li>
               <li><a class="nav-link scrollto" href="{% url 'contact' %}">CONTACT</a></li>
               {% if user.is_authenticated %}
                     <li><span>WELCOME {{ user.username }}</span></li>
@@ -153,17 +153,7 @@
 
               </a></li>
           <span id="cart-count">{{ cart_count }}</span>
-          <li class="nav-link">
-            <form method="GET" action="{% url 'product-list' %}" class="search-form">
-              <div class="search-container d-flex align-items-center">
-                  <input type="text" name="query" value="{{ search_query }}" placeholder="Search products..." class="search-box">
-                  <button type="submit" class="search-button">
-                      <i class="fa fa-search"></i>
-                  </button>
-              </div>
-              
-          </form>
-          </li>
+         
       </ul>
             
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -285,11 +275,11 @@
                 <h3>Our Services
                   <span></span></h3>
                 <ul>
-                  <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                  <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>
+                  <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li>
                 </ul>
               </div>
     
@@ -334,6 +324,8 @@
       <!-- Template Main JS File -->
       <script src="{% static 'hiecon/js/main.js'%}"></script>
       <script src="{% static 'hiecon/js/lightbox.min.js' %}"></script>
+   
+
      
     </body>
     <script>

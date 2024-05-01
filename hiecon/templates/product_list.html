@@ -436,6 +436,24 @@
     #row {
         margin-bottom: 10px;
     }
+  
+.product-card {
+    height: auto; /* Remove fixed height */
+    /* Other styles... */
+}
+.product-name {
+    height: auto; /* Allow variable height for product name */
+    /* Other styles... */
+}
+.card-body {
+    padding: 10px;
+}
+
+.product-make {
+    margin-bottom: 5px; 
+    
+}
+
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -604,12 +622,24 @@
             </center>
             {% endfor %}
             {% endif %}
+            
            
             <div class="container-fluid product-container">
                 <br />
                 <div class="section-title">
                     <h2>Product List</h2>
                 </div>
+                <li class="nav-link">
+                    <form method="GET" action="{% url 'product-list' %}" class="search-form">
+                      <div class="search-container d-flex align-items-center">
+                          <input type="text" style="width: 30%;" name="query" value="{{ search_query }}" placeholder="Search products..." class="search-box">
+                          <button type="submit" class="search-button">
+                              <i class="fa fa-search"></i>
+                          </button>
+                      </div>
+                      
+                  </form>
+                  </li>
                     
                 <div class="col-md-12 " style="text-align:end; font-size: 20px;">
                     <span
@@ -684,7 +714,7 @@
                                 <!-- Image column -->
                                 <div class="col-sm-4">
                                     <img src="{{ product.image1.url }}" class="product-image img-fluid"
-                                        alt="{{ product.product_name }}">
+                                        alt="{{ product.product_name }}" style="height: 120px; width: 120px;">
                                 </div>
                                 <!-- Description column -->
                                 <div class="col-sm-8">

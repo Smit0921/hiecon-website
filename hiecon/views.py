@@ -43,7 +43,15 @@ def Contact(request):
     return render(request,'contact.html')
 
 def Team(request):
-    return render(request,'team.html')
+    products = Product.objects.all()
+
+    # Pass the products to the template context
+    context = {
+        'products': products
+        
+    }
+
+    return render(request,'document.html',context)
 
 def handle_query_form(request):
     if request.method == 'POST':
