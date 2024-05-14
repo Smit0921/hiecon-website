@@ -24,6 +24,17 @@ from .forms import ProductSearchForm
 # Create your views here.
 def Index(request):
     cart_count = 0
+
+    # Retrieve or create Visitor object
+    visitor_count, created = Visitor.objects.get_or_create(pk=1)
+
+    # Increment visitor count
+    visitor_count.count += 1
+    visitor_count.save()
+
+    # Add print statement to indicate view execution
+    print("Visitor count:", visitor_count)
+
     if request.user.is_authenticated:
         customer, created = Customer.objects.get_or_create(user=request.user)
         user_carts = Cart.objects.filter(customer=customer)
@@ -31,7 +42,7 @@ def Index(request):
             user_cart = user_carts.first()
             cart_count = user_cart.cartproduct_set.count()
 
-    return render(request, 'index.html', {'cart_count': cart_count})
+    return render(request, 'index.html', {'cart_count': cart_count, 'visitor_count': visitor_count})
 
 def About(request):
     return render(request,'about.html')

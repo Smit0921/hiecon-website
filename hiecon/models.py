@@ -82,4 +82,7 @@ class Newsletter(models.Model):
     email=models.EmailField(unique=True)
   
     def _str_(self):
-        return self.email           
+        return self.email 
+              
+class Visitor(models.Model):
+    count = models.IntegerField(default=0)
