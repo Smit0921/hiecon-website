@@ -148,5 +148,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'smit.hiecon18@gmail.com'  # Replace with your email address
 EMAIL_HOST_PASSWORD = 'ofpw jphw qwre ygik'  # Replace with your email password
 
+# Payment gateway settings
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', '')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', '')
+
 
  

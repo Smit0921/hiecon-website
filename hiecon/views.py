@@ -18,6 +18,11 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.http import HttpResponseBadRequest
 from .forms import ProductSearchForm
+import base64
+import hashlib
+import hmac
+import json
+from urllib import error, request as urllib_request
 # from django.contrib.auth.models import User
 
 
@@ -424,42 +429,138 @@ def update_quantity(request, cart_product_id):
     return redirect('cart')
 
 
+def _finalize_cart_submission(request, user, customer, user_cart):
+    cart_products = user_cart.cartproduct_set.all()
+
+    admin_email = "smit.hiecon18@gmail.com"
+    subject = f"New Cart Submission - {user.username}"
+    message = f"{user.username} submitted the following items:\n"
+    for cart_product in cart_products:
+        message += f"{cart_product.product.product_name} - Quantity: {cart_product.quantity}\n"
+
+    user_cart.last_submission_timestamp = timezone.now()
+    user_cart.save()
+
+    new_user_cart = Cart.objects.create(customer=customer)
+    cart_products.update(cart=new_user_cart)
+
+    try:
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [admin_email])
+    except Exception as e:
+        print(f"Email sending failed: {e}")
+
+
+@login_required
+def pay_now(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid request method.")
+
+    customer, created = Customer.objects.get_or_create(user=request.user)
+    user_cart = Cart.objects.filter(customer=customer).first()
+    if not user_cart or not user_cart.cartproduct_set.exists():
+        messages.error(request, 'Your cart is empty.')
+        return redirect('cart')
+
+    key_id = getattr(settings, 'RAZORPAY_KEY_ID', '')
+    key_secret = getattr(settings, 'RAZORPAY_KEY_SECRET', '')
+    if not key_id or not key_secret:
+        messages.error(request, 'Payment gateway is not configured. Please contact support.')
+        return redirect('cart')
+
+    amount = user_cart.calculate_total()
+    payment = PaymentTransaction.objects.create(customer=customer, cart=user_cart, amount=amount)
+
+    payload = {
+        "amount": amount * 100,
+        "currency": "INR",
+        "receipt": f"cart-{user_cart.id}-pay-{payment.id}",
+        "notes": {
+            "cart_id": str(user_cart.id),
+            "customer_id": str(customer.id),
+            "payment_id": str(payment.id),
+        }
+    }
+    encoded = base64.b64encode(f"{key_id}:{key_secret}".encode()).decode()
+    req = urllib_request.Request(
+        "https://api.razorpay.com/v1/orders",
+        data=json.dumps(payload).encode(),
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Basic {encoded}",
+        },
+        method='POST'
+    )
+
+    try:
+        with urllib_request.urlopen(req, timeout=15) as response:
+            order_data = json.loads(response.read().decode())
+    except error.URLError:
+        payment.status = PaymentTransaction.STATUS_FAILED
+        payment.save(update_fields=['status', 'updated_at'])
+        messages.error(request, 'Unable to connect to payment gateway. Try again later.')
+        return redirect('cart')
+
+    payment.gateway_order_id = order_data.get('id', '')
+    payment.save(update_fields=['gateway_order_id', 'updated_at'])
+
+    context = {
+        'razorpay_key_id': key_id,
+        'amount_paise': payload['amount'],
+        'amount_rupees': amount,
+        'order_id': payment.gateway_order_id,
+        'payment': payment,
+    }
+    return render(request, 'payment_checkout.html', context)
+
+
+@login_required
+def payment_callback(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest("Invalid request method.")
+
+    order_id = request.POST.get('razorpay_order_id', '')
+    payment_id = request.POST.get('razorpay_payment_id', '')
+    signature = request.POST.get('razorpay_signature', '')
+
+    txn = PaymentTransaction.objects.filter(gateway_order_id=order_id).first()
+    if not txn:
+        messages.error(request, 'Payment transaction not found.')
+        return redirect('cart')
+
+    generated_signature = hmac.new(
+        key=getattr(settings, 'RAZORPAY_KEY_SECRET', '').encode(),
+        msg=f"{order_id}|{payment_id}".encode(),
+        digestmod=hashlib.sha256,
+    ).hexdigest()
+
+    if not hmac.compare_digest(generated_signature, signature):
+        txn.status = PaymentTransaction.STATUS_FAILED
+        txn.gateway_payment_id = payment_id
+        txn.gateway_signature = signature
+        txn.save(update_fields=['status', 'gateway_payment_id', 'gateway_signature', 'updated_at'])
+        messages.error(request, 'Payment signature validation failed.')
+        return redirect('cart')
+
+    txn.status = PaymentTransaction.STATUS_SUCCESS
+    txn.gateway_payment_id = payment_id
+    txn.gateway_signature = signature
+    txn.save(update_fields=['status', 'gateway_payment_id', 'gateway_signature', 'updated_at'])
+
+    _finalize_cart_submission(request, request.user, txn.customer, txn.cart)
+    messages.success(request, 'Payment successful and cart submitted.')
+    return redirect('cart')
+
+
 def submit_cart(request):
     if request.method == 'POST':
         user = request.user
         customer, created = Customer.objects.get_or_create(user=user)
-
-        # Ensure that there's only one cart associated with the customer
         user_cart = Cart.objects.filter(customer=customer).first()
         if not user_cart:
             user_cart = Cart.objects.create(customer=customer)
 
-        cart_products = user_cart.cartproduct_set.all()
-
-        # Construct email message
-        admin_email = "smit.hiecon18@gmail.com"  # Replace with your admin's email
-        subject = f"New Cart Submission - {user.username}"
-        message = f"{user.username} submitted the following items:\n"
-        for cart_product in cart_products:
-            message += f"{cart_product.product.product_name} - Quantity: {cart_product.quantity}\n"
-
-        # Update last_submission_timestamp
-        user_cart.last_submission_timestamp = timezone.now()
-        user_cart.save()
-
-        # Create a new cart for the user
-        new_user_cart = Cart.objects.create(customer=customer)
-
-        # Set cart foreign key to new_user_cart for all associated Cartproduct instances
-        cart_products.update(cart=new_user_cart)
+        _finalize_cart_submission(request, user, customer, user_cart)
         messages.success(request, 'Thank you. Your Cart is Submitted.')
-
-        # Send email to admin
-        try:
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [admin_email])
-            print("Email sent successfully!")
-        except Exception as e:
-            print(f"Email sending failed: {e}")
 
     return redirect('cart')
 

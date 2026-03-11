@@ -59,6 +59,9 @@
                     <td>
                         <button type="submit" value="submit" class="btn btn-success">Submit Cart</button>
                     </td>
+                    <td>
+                        <button type="submit" formaction="{% url 'pay_now' %}" class="btn btn-primary">Pay Now</button>
+                    </td>
                 </tr>
             </tfoot>
         </table>
